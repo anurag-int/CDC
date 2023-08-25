@@ -5,7 +5,7 @@ const database = require("./config/database");
 database.connect();
 const dotenv = require("dotenv");
 dotenv.config();
-const recruiterRoutes = require("./routes/recruiter/User");
+const Routes = require("./routes/User");
 const PORT = process.env.PORT || 5000;
 
 
@@ -18,7 +18,8 @@ app.get("/", (req, res)=>{
 })
 
 //routes
-app.use("/api/v1/recruiter", recruiterRoutes);
+app.use("/api/v1/recruiter", Routes);
+app.use("/api/v1/student", Routes);
 
 app.listen(PORT, ()=>{
     console.log(`Server started at PORT ${PORT}`);

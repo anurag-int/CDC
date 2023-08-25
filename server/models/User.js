@@ -21,6 +21,13 @@ const userSchema = new mongoose.Schema(
             type : String,
             required : true,
             trim : true
+        },
+        userRole : {
+            type : String,
+            enum : ["student", "recruiter"]
+        },
+        organization : {
+            type : String
         }
     }
 );
