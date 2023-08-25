@@ -1,12 +1,14 @@
 const express = require("express");
 const User = require("../../models/User");
 
-exports.signupRecruiter = async(req, res) => {
+exports.signupStudents = async(req, res) => {
     try{
 
-        const {firstName, lastName, email, password, organization} = req.body;
+        const {firstName, lastName, email, password} = req.body;
 
-        if(!firstName || !lastName || !email || !password || !organization)
+        console.log(firstName);
+
+        if(!firstName || !lastName || !email || !password)
         {
             return res.status(403).json({
                 success : false,
@@ -25,7 +27,7 @@ exports.signupRecruiter = async(req, res) => {
         }
         
         const user = await User.create({
-            firstName, lastName, email, password, organization, userRole : "recruiter"
+            firstName, lastName, email, password, organization : "OP JINDAL UNIVERSITY", userRole : "student"
         });
 
         return res.status(200).json({
