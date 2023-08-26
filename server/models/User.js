@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
     {
-        firstName : {
+        first_name : {
             type : String,
             required : true,
             trim : true
         },
-        lastName : {
+        last_name : {
             type : String,
             required : true,
             trim : true
@@ -22,9 +22,9 @@ const userSchema = new mongoose.Schema(
             required : true,
             trim : true
         },
-        userRole : {
+        role : {
             type : String,
-            enum : ["student", "recruiter"]
+            enum : ["candidate", "recruiter"]
         },
         organization : {
             type : String
