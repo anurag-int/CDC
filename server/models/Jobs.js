@@ -18,14 +18,13 @@ const jobSchema = mongoose.Schema(
             trim : true
         },
         salary : {
-            type : String,
-            required : true,
-            trim : true
+            type : {},
+            required : true
+            
         },
         experience : {
-            type : String,
+            type : {},
             required : true,
-            trim : true
         },
         about_company : {
             type : String,
@@ -33,14 +32,14 @@ const jobSchema = mongoose.Schema(
             trim : true
         },
         responsibilities : {
-            type : String,
+            type : [String],
             required : true,
             trim : true
         },
         requirements : {
-            type : String,
-            required : true  ,
-            trim : true 
+            type : [String],
+            required : true,
+            trim : true
         },
         skills : {
             type : [String],
