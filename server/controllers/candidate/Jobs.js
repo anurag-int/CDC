@@ -5,14 +5,12 @@ const Jobs = require("../../models/Jobs");
 exports.getjobs = async(req, res) => {
     try{
         const alljobs = await Jobs.find();
-        console.log(typeof(alljobs));
-        const size = Object.keys(alljobs).length;
-
-        if(size == 0)
+        
+        if(!alljobs)
         {
             return res.status(200).json({
                 success : true,
-                jobs_available : size,
+                jobs_available : 0,
                 message : "No jobs Available!"
             })
         }
@@ -20,7 +18,7 @@ exports.getjobs = async(req, res) => {
         {
             return res.status(200).json({
                 success : true,
-                jobs_available : size,
+                jobs_available : alljobs.length,
                 data : alljobs,
                 message : "Here are the jobs Available"
             })

@@ -5,8 +5,8 @@ const database = require("./config/database");
 database.connect();
 const dotenv = require("dotenv");
 dotenv.config();
-const recruiter_routes = require("./routes/recruiter/User");
-const candidate_routes = require("./routes/candidate/User");
+const recruiter_routes = require("./routes/recruiter/index");
+const candidate_routes = require("./routes/candidate/index");
 const PORT = process.env.PORT || 5000;
 
 
