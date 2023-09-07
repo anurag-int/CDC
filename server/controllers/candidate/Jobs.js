@@ -1,39 +1,39 @@
 const express = require("express");
 const Jobs = require("../../models/Jobs");
+const Skill = require("../../models/Skills");
 
 exports.getjobs = async (req, res) => {
   try {
     const search = req.query.search || "";
-    let skills = req.query.skills || "All";
+    const skillsQuery = req.query.skills;
+    const location = req.query.location || "";
 
-    const skillsOptions = [
-      "C++",
-      "Java",
-      "Python",
-      "ReactNative",
-      "R",
-      "Ruby",
-      "Flutter",
-      "React"
-    ];
+    // Create a filter object to build the query conditions dynamically
+    const filter = {
+      title: { $regex: search, $options: "i" }
+    };
 
-    skills === "All"
-      ? (skills = skillsOptions)
-      : (skills = req.query.skills.split(","));
+    // Add skills query condition if skillsQuery is provided
+    if (skillsQuery) {
+      // Find the skill document based on the provided skill name
+      const skill = await Skill.findOne({ skills: skillsQuery });
 
-    const jobs = await Jobs.find({
-      title: { $regex: search, $options: "i" },
-      skills: { $in: skills } // Use "skills" as an array
-    });
+      if (skill) {
+        filter.skills = skill._id; // Filter jobs by the skill ID
+      }
+    }
 
-    const total = await Jobs.countDocuments({
-        jobs:{$in:[...jobs]},
-        title: {$regex: search, $options:"i"},
-    });
+    // Add location query condition if location is provided
+    if (location) {
+      filter.location = location;
+    }
+
+    // Query jobs based on the filter object
+    const jobs = await Jobs.find(filter);
 
     const response = {
-      success: "true",
-      "job-opens" : jobs.length,
+      success: true,
+      "job-opens": jobs.length,
       jobs
     };
 
