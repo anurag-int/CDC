@@ -8,17 +8,19 @@ exports.getjobs = async (req, res) => {
     const skillsQuery = req.query.skills;
     const location = req.query.location || "";
 
+    console.log(typeof skillsQuery);
     // Create a filter object to build the query conditions dynamically
     const filter = {
       title: { $regex: search, $options: "i" }
     };
+
 
     // Add skills query condition if skillsQuery is provided
     if (skillsQuery) {
       // Find the skill document based on the provided skill name
       const skill = await Skill.findOne({ skills: skillsQuery });
 
-      if (skill) {
+      if(skill){
         filter.skills = skill._id; // Filter jobs by the skill ID
       }
     }
@@ -28,6 +30,7 @@ exports.getjobs = async (req, res) => {
       filter.location = location;
     }
 
+    
     // Query jobs based on the filter object
     const jobs = await Jobs.find(filter);
 
