@@ -1,1 +1,1 @@
-# Career Hub - Job Searching Platform for College Students
+# Career Hub - Job Searching Platform for University/College Students
